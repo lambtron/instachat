@@ -1,12 +1,19 @@
 <head>
-  <title>instachat</title>
+  <title>Leaderboard</title>
 </head>
 
 <body>
-  {{> hello}}
-  <br>
-  {{> streamAndy}}
-  {{> streamMike}}
+  <div id="outer">
+    {{> hello}}
+    <br>
+    {{> streamAndy}}
+    <br>
+    {{> streamMike}}
+
+    {{> chat1}}
+    {{> display1}}
+    {{> leaderboard}}
+  </div>
 </body>
 
 <template name="hello">
@@ -23,4 +30,45 @@
 
 <template name="streamMike">
   {{text}}
+</template>
+
+
+
+
+<template name="leaderboard">
+  <div class="leaderboard">
+    {{#each players}}
+      {{> player}}
+    {{/each}}
+  </div>
+
+  {{#if selected_name}}
+  <div class="details">
+    <div class="name">{{selected_name}}</div>
+    <input type="button" class="inc" value="Give 5 points" />
+  </div>
+  {{/if}}
+
+  {{#unless selected_name}}
+  <div class="none">Click a player to select</div>
+  {{/unless}}
+</template>
+
+<template name="player">
+  <div class="player {{selected}}">
+    <span class="name">{{name}}</span>
+    <span class="score">{{score}}</span>
+  </div>
+</template>
+
+<template name="chat1">
+  <div class="chat">
+    <input type="text" class="area"></textarea>
+  </div>
+</template>
+
+<template name="display1">
+  <div class="display">
+    <span class="display-text">{{text}}</span>
+  </div>
 </template>
