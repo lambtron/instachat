@@ -4,15 +4,23 @@
 
 <body>
   {{> hello}}
+  <br>
+  {{> streamAndy}}
+  {{> streamMike}}
 </body>
 
 <template name="hello">
   <h1>Hello World!</h1>
   {{greeting}}
   <br>
-  <input class="chat" type="text" style="text-align: right"/>
+  <input id="andy" class="chat" type="text" style="text-align: right"/>
+  <input id="mike" class="chat" type="text" style="text-align: right"/>
 </template>
 
-<template name="stream">
+<template name="streamAndy">
+  {{text}}
+</template>
+
+<template name="streamMike">
   {{text}}
 </template>
