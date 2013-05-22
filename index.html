@@ -51,7 +51,6 @@
         socket.on('updatechat', function (username, data) {
           // Determine who the chat is coming from. Then update the right place.
           // Also put the fade on each character.
-          console.log(data);
           if (data.length < 18 && data.indexOf("connected") == -1) {
             // console.log(myname);
             if (username == myname) {
@@ -61,6 +60,8 @@
               theirCharCounter = getNextCharId(theirCharCounter);
               appendLog($('#theirlog'), data, theirCharCounter);
             }
+          } else {
+            console.log(data);
           }
 
           // Strip the message header (username:) from the message.
@@ -174,6 +175,7 @@
           left: 20%;
           top: 40px;
           text-align: right;
+          color: #919191;
       }
 
       #form {
