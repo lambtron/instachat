@@ -4,7 +4,11 @@ var express = require('express')
   , server = http.createServer(app)
   , io = require('socket.io').listen(server);
 
-server.listen(8080);
+// server.listen(8080);
+var port = process.env.PORT || 3000;
+server.listen(port, function() {
+  console.log("Listening on " + port);
+});
 
 // routing
 app.get('/', function (req, res) {
@@ -13,6 +17,11 @@ app.get('/', function (req, res) {
 
 // usernames which are currently connected to the chat
 var usernames = {};
+
+io.configure(function() {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 10);
+});
 
 io.sockets.on('connection', function (socket) {
 
