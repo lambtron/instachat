@@ -6,8 +6,8 @@
     <script>
       // on load of page
       $(function(){
-        var socket = io.connect('http://phantachat.herokuapp.com/');
-        // var socket = io.connect('http://localhost:3000/');
+        // var socket = io.connect('http://phantachat.herokuapp.com/');
+        var socket = io.connect('http://localhost:3000/');
 
         // on connection to server, ask for user's name with an anonymous callback
         socket.on('connect', function(){
@@ -68,8 +68,11 @@
               theirCharCounter = getNextCharId(theirCharCounter);
               appendLog($('#theirlog'), data, theirCharCounter);
             }
-          } else if (data.indexOf("visibility change:")) {
-            if ( data.indexOf("hidden") ) {
+          } else if (data.indexOf("visibility change:") >= 0) {
+            console.log(data);
+            console.log(data.indexOf("hidden"));
+            if ( data.indexOf("visible") == -1 && username != myname) {
+              console.log("tabbed away");
               var name = $('#theirid').text();
               if (name == '')
                 name = 'Your friend';
@@ -77,12 +80,14 @@
               $('#theirupdate').animate({
                 opacity: 1
               }, fadeMillis );
-            } else 
+            } else {
+              console.log("tabbed back");
               $('#theirupdate').animate({
                 opacity: 0
               }, fadeMillis, function() {
                 $(this).empty();
               });
+            }
           } else {
             console.log(data);
           }
