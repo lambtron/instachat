@@ -26,9 +26,13 @@ app.get('/', function (req, res) {
   // Create random hash.
   // Send the hash to become the socket room.
   var newHash = hashids.encrypt(counter);
-  hashes[newHash] = "";
+  hashes[newHash] = "success";
   counter = counter + 1;
-  res.render('index.jade', {room: newHash});
+  console.log(hashes);
+  console.log(hashes[newHash]);
+  // res.render('index.jade', {room: newHash});
+  res.redirect('http://localhost:3000/' + newHash);
+  // res.redirect('http://phantachat.herokuapp.com/' + newHash);
 });
 
 app.get('/:hash', function(req, res) {
