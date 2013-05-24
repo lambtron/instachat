@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+# Modules
+node_modules/*
+=======
+.meteor
+>>>>>>> ec8dd5669e91ab1ab3c4730eed632feb7fa82aef
