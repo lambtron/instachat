@@ -63,24 +63,11 @@
           } else {
             console.log(data);
           }
-
-          // Strip the message header (username:) from the message.
-          // var actualMessage = evt.data.substring(evt.data.indexOf(':') + 1);
-          // if (isMyMessage(evt.data)) {
-          //     myCharCounter = getNextCharId(myCharCounter);
-          //     appendLog(mylog, actualMessage, myCharCounter); 
-          // } else {
-          //     theirCharCounter = getNextCharId(theirCharCounter);
-          //     appendLog(theirlog, actualMessage, theirCharCounter); 
-          // }
-          // $('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
         });
 
         // listener, whenever the server emits 'updateusers', this updates the username list
         socket.on('updateusers', function(data) {
           // Add the user name to the appropriate .name element.
-
-          $('#users').empty();
           $.each(data, function(key, value) {
             if (key != $("#myid").text()) {
               $("#theirid").text(key);
