@@ -2,7 +2,8 @@ var express = require('express')
   , app = express()
   , http = require('http')
   , server = http.createServer(app)
-  , io = require('socket.io').listen(server);
+  , io = require('socket.io').listen(server)
+  , Hashids = require('hashids');
 
 // server.listen(8080);
 var port = process.env.PORT || 3000;
@@ -16,11 +17,28 @@ app.set('view engine', 'jade');
 app.use('/assets', express.static(__dirname + '/assets'));
 app.use(express.bodyParser());
 
+var hashes = {};
+var counter = 0;
+var hashids = new Hashids("this is my salt", 8);
+
 // routing
 app.get('/', function (req, res) {
   // Create random hash.
   // Send the hash to become the socket room.
-  res.render('index.jade', {room: hash});
+  var newHash = hashids.encrypt(counter);
+  hashes[newHash] = "";
+  counter = counter + 1;
+  res.render('index.jade', {room: newHash});
+});
+
+app.get('/:hash', function(req, res) {
+  if (hashes[req.params.hash]) {
+    res.render('index.jade', {room: req.params.hash});
+  } else {
+    // create new hash.
+    // Show page that says go to root to generate new chatroom.
+    res.render('error.jade')
+  }
 });
 
 // routing with hashes.
