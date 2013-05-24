@@ -20,7 +20,7 @@ app.use(express.bodyParser());
 app.get('/', function (req, res) {
   // Create random hash.
   // Send the hash to become the socket room.
-  res.render('index.jade');
+  res.render('index.jade', {room: hash});
 });
 
 // routing with hashes.
