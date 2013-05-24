@@ -1,10 +1,11 @@
 {
-     "name": "mukhin_chat",
-     "description": "example chat application with socket.io",
+     "name": "Phantachat",
+     "description": "Chat on the web like how you chat in person.",
      "version": "0.0.1",
      "dependencies": {
         "express": "3.x",
-        "socket.io": ""
+        "socket.io": "",
+        "jade": ">= 0.0.1"
      },
      "engines": {
      	"node": "0.10.x",

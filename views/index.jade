@@ -1,0 +1,84 @@
+!!! 5
+html
+	head
+		title Phantachat
+		script(src="/socket.io/socket.io.js")
+		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js")
+		script(src="/assets/index.js")
+		style
+			html {
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			}
+			body {
+				padding: 0;
+				margin: 0;
+				width: 100%;
+				height: 100%;
+				background: white;
+			}
+			.logcontainer {
+				height: 450px;
+			}
+			.log {
+				margin: 0;
+				border-style: solid;
+				border-color: white;
+				border-width: 50px;
+				background: white;
+				padding-right: 20%;
+				padding-left: 20%;
+				text-align: right;
+				font-size: 3.6em;
+				height: 100%;
+			}
+			.name {
+				position: relative;
+				left: 20%;
+				top: 40px;
+				text-align: right;
+				color: #919191;
+			}
+			#form {
+				padding: 0;
+				margin: 0;
+				position: absolute;
+				bottom: 1em;
+				left: 0px;
+				width: 100%;
+				overflow: hidden;
+			}
+			#msg {
+				border: none;
+				position: absolute;
+				right: 0px;
+				bottom: 0px;
+				opacity: 0;
+				padding: 0px;
+				text-align: right;
+				width: 10%;
+			}
+			#msg:focus{
+				outline: none;
+			}
+			#fade {
+				margin-right: 5em;
+				text-align: right;
+			}
+			#theirupdate {
+				position: absolute;
+				top: 13%;
+				left: 20%;
+				margin-right: 20%;
+				font-size: 4em;
+				color: #919191;
+				opacity: 0;
+			}
+		body
+			div.logcontainer
+				span#theirid.name
+				span#theirupdate
+				div#theirlog.log
+			div.logcontainer
+				span#myid.name
+				div#mylog.log
+			input#msg(type="text", size="64")

@@ -10,10 +10,28 @@ server.listen(port, function() {
   console.log("Listening on " + port);
 });
 
+// Configuration.
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use('/assets', express.static(__dirname + '/assets'));
+app.use(express.bodyParser());
+
 // routing
 app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
+  // Create random hash.
+  // Send the hash to become the socket room.
+  res.render('index.jade');
 });
+
+// routing with hashes.
+// var hashes = {}
+// app.get('/:hash', function(req,res){
+//   if (hashes[req.params.hash]){ // route that shit
+//     res.sendfile(__dirname + '/index.html'); // hash?
+//   } else {
+//     // create new hash here and shit
+//   }
+// });
 
 // usernames which are currently connected to the chat
 var usernames = {};
