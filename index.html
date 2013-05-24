@@ -8,6 +8,7 @@
       $(function(){
         // var socket = io.connect('http://vast-anchorage-3166.herokuapp.com/');
         var socket = io.connect('http://phantachat.herokuapp.com/');
+        // var socket = io.connect('http://localhost:5000/');
 
         // on connection to server, ask for user's name with an anonymous callback
         socket.on('connect', function(){
@@ -23,11 +24,6 @@
         var unusedCounterValue = 999999999;
         var fadeMillis = 1000;
         var timeoutMillis = 3000;
-     
-        // Username will be prepended to the messages sent for demuxing.
-        // var username = prompt("Enter username:", "default") + ":";
-        // $("#myid").text(username);
-
         var msg = $("#msg");
         var theirlog = $("#theirlog");
         var mylog = $("#mylog");
@@ -72,7 +68,6 @@
             if (key != $("#myid").text()) {
               $("#theirid").text(key);
             }
-            // $('#users').append('<div>' + key + '</div>');
           });
         });
 
@@ -94,39 +89,26 @@
               opacity: 0
             }, fadeMillis, function() {
               // Delete text if all characters have faded.
-              if ((log == mylog && localCharId == myCharCounter) ||
-                  (log == theirlog && localCharId == theirCharCounter)) {
+              if ((log.is($(mylog)) && localCharId == myCharCounter) ||
+                  (log.is($(theirlog)) && localCharId == theirCharCounter)) {
                   log.empty();
+                  console.log("emptied :" + log.attr('id'));
               }
             });
-          },
-          timeoutMillis);
+          }, timeoutMillis);
 
           if (doScroll) {
             d.scrollTop = d.scrollHeight - d.clientHeight;
           }
 
-          // Delete from char queue if there are more than 20 characters.
+          // Delete from char queue if there are more than max characters.
           if (log.text().length > maxCharacters) {
             $(":first-child", log).remove();
           };
+          if (theirlog.text().length > maxCharacters) {
+            $(":first-child", theirlog).remove();
+          }
         }
-
-        // // when the client clicks SEND
-        // $('#datasend').click( function() {
-        //   var message = $('#data').val();
-        //   $('#data').val('');
-        //   // tell server to execute 'sendchat' and send along one parameter
-        //   socket.emit('sendchat', message);
-        // });
-
-        // when the client hits ENTER on their keyboard
-        // $('#data').keypress(function(e) {
-        //   if(e.which == 13) {
-        //     $(this).blur();
-        //     $('#datasend').focus().click();
-        //   }
-        // });
       });
     </script>
     <style type="text/css">
@@ -197,16 +179,6 @@
     </style>
   </head>
   <body>
-    <!-- <div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;">
-      <b>USERS</b>
-      <div id="users"></div>
-    </div> -->
-    <!-- <div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
-      <div id="conversation"></div>
-      <input id="data" style="width:200px;" />
-      <input type="button" id="datasend" value="send" />
-    </div> -->
-
     <div class="logcontainer">
         <span id="theirid" class="name"></span>
         <div id="theirlog" class="log"></div>
