@@ -5,8 +5,7 @@
      "dependencies": {
         "express": "3.x",
         "socket.io": "",
-        "jade": ">= 0.0.1",
-        "hashid"
+        "jade": ">= 0.0.1"
      },
      "engines": {
      	"node": "0.10.x",
