@@ -6,7 +6,7 @@
         "express": "3.x",
         "socket.io": "",
         "jade": ">= 0.0.1",
-        "hashids"
+        "hashids": ""
      },
      "engines": {
      	"node": "0.10.x",
