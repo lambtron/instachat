@@ -2,5 +2,34 @@
 html
 	head
 		title Phantachat
+		style
+			html {
+				font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			}
+			body {
+				padding: 0;
+				margin: 0 auto;
+				text-align: center;
+				width: 100%;
+				height: 100%;
+				background: white;
+			}
+			#container {
+				margin: 5em;
+				padding: 5em;
+			}
+			#footerholder {
+				padding-bottom: 0.6em;
+				bottom: 0;
+				position: fixed;
+				width: 100%;
+			}
+			#footer {
+				color: gray;
+				margin: 0 auto;
+			}
 		body
-			Go to root to generate new chat room.
+			#container
+				a(href="/") Start a new chat.
+			#footerholder
+				#footer Made with love by Andy and Michael &bull; 2013

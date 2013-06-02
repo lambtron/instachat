@@ -1,12 +1,12 @@
 // on load of page
 $(function(){
-  // var socket = io.connect('http://phantachat.herokuapp.com/');
-  var socket = io.connect('/test');
-
   // on connection to server, ask for user's name with an anonymous callback
   socket.on('connect', function(){
     // call the server-side function 'adduser' and send one parameter (value of prompt)
     myname = prompt("What's your name?");
+    if (!myname) {
+      myname = "Steve";
+    }
     socket.emit('adduser', myname);
     $("#myid").html(myname);
   });

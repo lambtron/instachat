@@ -4,6 +4,8 @@ html
 		title Phantachat
 		script(src="/socket.io/socket.io.js")
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js")
+		script(type="text/javascript")
+			var socket = io.connect('/#{room}');
 		script(src="/assets/index.js")
 		style
 			html {
@@ -17,7 +19,7 @@ html
 				background: white;
 			}
 			.logcontainer {
-				height: 450px;
+				height: 300px;
 			}
 			.log {
 				margin: 0;
@@ -73,6 +75,17 @@ html
 				color: #919191;
 				opacity: 0;
 			}
+			#footerholder {
+				bottom: 0;
+				text-align: center;
+				position: fixed;
+				padding-bottom: 20px;
+				width: 100%;
+			}
+			#footer {
+				color: gray;
+				margin: 0 auto;
+			}
 		body
 			div.logcontainer
 				span#theirid.name
@@ -82,3 +95,5 @@ html
 				span#myid.name
 				div#mylog.log
 			input#msg(type="text", size="64")
+			#footerholder
+				#footer Made with love by Andy and Michael
