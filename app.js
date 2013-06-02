@@ -27,9 +27,8 @@ app.get('/', function (req, res) {
   var newHash = hashids.encrypt(counter);
   hashes[newHash] = "success";
   counter = counter + 1;
-  // res.render('index.jade', {room: newHash});
-  // res.redirect('http://localhost:3000/' + newHash);
-  res.redirect('http://phantachat.herokuapp.com/' + newHash);
+  res.redirect('http://localhost:3000/' + newHash);
+  // res.redirect('http://phantachat.herokuapp.com/' + newHash);
 });
 
 app.get('/:hash', function(req, res) {
@@ -54,16 +53,6 @@ function start_chat(namespace) {
     io.set("transports", ["xhr-polling"]);
     io.set("polling duration", 10);
   });
-
-  // io.sockets.on('connection', function (socket) {
-
-    // when the client emits 'sendnamespace', this listens and assigns namespace
-    // socket.on('sendnamespace', function () {
-    //   console.log("namespace: " + 'EacdMcb7');
-    //   // socket.namespace = namespace;
-    //   var dyn_ns = io.of('/EacdMcb7')
-    //                  .on('connection', function(ns_socket){console.log('user connected to ' + last_ns.id);});
-    // });
 
   var chat = io
     .of('/' + namespace)
@@ -103,5 +92,4 @@ function start_chat(namespace) {
         chat.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
       });
     });
-// });
 }
