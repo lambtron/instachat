@@ -55,8 +55,19 @@ $(function(){
     // Determine who the chat is coming from. Then update the right place.
     // Also put the fade on each character.
     var name = $('#theirid').text();
-    if (name == '')
+    if (name == '') {
       name = 'Your friend';
+      $('#theirupdate').html(name + ' hasn\'t joined yet!');
+      $('#theirupdate').animate({
+        opacity: 1
+      }, fadeMillis );
+    } else {
+      $('#theirupdate').animate({
+        opacity: 0
+      }, fadeMillis, function() {
+        $(this).empty();
+      });
+    }
     if (data.indexOf("connected") == -1 && data.indexOf("visibility") == -1) {
       if (username == myname) {
         myCharCounter = getNextCharId(myCharCounter);
@@ -65,10 +76,9 @@ $(function(){
         theirCharCounter = getNextCharId(theirCharCounter);
         appendLog($('#theirlog'), data, theirCharCounter);
       }
-      console.log(data);
     } else if (data.indexOf("visibility change:") >= 0) {
       if ( data.indexOf("visible") == -1 && username != myname) {
-        $('#theirupdate').html(name + ' either tabbed away or hasn\'t joined yet and won\'t be able to read your messages!');
+        $('#theirupdate').html(name + ' tabbed away and won\'t be able to read your messages!');
         $('#theirupdate').animate({
           opacity: 1
         }, fadeMillis );
@@ -82,6 +92,9 @@ $(function(){
       }
     } else if (data.indexOf("disconnected") >= 0 && username != myname) {
       $('#theirupdate').html(name + ' left the chat.');
+      $('#theirupdate').animate({
+        opacity: 1
+      }, fadeMillis );
     } else {
       console.log(data);
     }
