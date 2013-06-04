@@ -61,7 +61,10 @@ function start_chat(namespace) {
       socket.on('sendchat', function (data) {
         // we tell the client to execute 'updatechat' with 2 parameters
         // io.sockets.emit('updatechat', socket.username, data);
+        console.log(socket.username + " wrote: " + data);
+
         chat.emit('updatechat', socket.username, data);
+        // socket.emit('updatechat', socket.username, data);
       });
 
       // when the client emits 'adduser', this listens and executes

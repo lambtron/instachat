@@ -54,7 +54,7 @@ $(function(){
   socket.on('updatechat', function (username, data) {
     // Determine who the chat is coming from. Then update the right place.
     // Also put the fade on each character.
-    var name = $('#theirid');
+    var name = $('#theirid').text();
     if (name == '')
       name = 'Your friend';
     if (data.indexOf("connected") == -1 && data.indexOf("visibility") == -1) {
@@ -65,6 +65,7 @@ $(function(){
         theirCharCounter = getNextCharId(theirCharCounter);
         appendLog($('#theirlog'), data, theirCharCounter);
       }
+      console.log(data);
     } else if (data.indexOf("visibility change:") >= 0) {
       if ( data.indexOf("visible") == -1 && username != myname) {
         $('#theirupdate').html(name + ' either tabbed away or hasn\'t joined yet and won\'t be able to read your messages!');
