@@ -2,7 +2,7 @@ var express = require('express')
   , app = express()
   , http = require('http')
   , server = http.createServer(app)
-  , io = require('socket.io').listen(server)
+  , io = require('socket.io').listen(server, { log: false })
   , Hashids = require('hashids');
 
 var port = process.env.PORT || 3000;
@@ -20,6 +20,13 @@ var hashes = {};
 var counter = 0;
 var hashids = new Hashids("this is my salt", 8);
 
+// This keeps track of which namespace we've already setup a
+// connection handler for. We don't want to create more than 1
+// or else the message will be handled multiple times.
+// See:
+// http://stackoverflow.com/questions/13599071/why-is-my-socket-emit-event-firing-multiple-times-based-on-of-global-connecti
+var namespace_status = {};
+
 // routing
 app.get('/', function (req, res) {
   // Create random hash.
@@ -33,7 +40,11 @@ app.get('/', function (req, res) {
 
 app.get('/:hash', function(req, res) {
   if (hashes[req.params.hash]) {
-    start_chat(req.params.hash);
+    // Only 'start" a chat once.
+    if (namespace_status[req.params.hash] != 'started') {
+      start_chat(req.params.hash);
+      namespace_status[req.params.hash] = 'started'
+    }
     res.render('index.jade', {'room': req.params.hash});
   } else {
     // create new hash.
