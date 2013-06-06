@@ -46,6 +46,8 @@ app.get('/:hash', function(req, res) {
       namespace_status[req.params.hash] = 'started'
     }
     res.render('index.jade', {'room': req.params.hash});
+  } else if (req.params.hash == 'about') {
+    res.render('about.jade');
   } else {
     // create new hash.
     // Show page that says go to root to generate new chatroom.
