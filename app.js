@@ -17,8 +17,9 @@ app.use('/assets', express.static(__dirname + '/assets'));
 app.use(express.bodyParser());
 
 var hashes = {};
-var counter = 0;
-var hashids = new Hashids("this is my salt", 8);
+var counter = Math.floor(Math.random()*1000);
+var salt = Math.random().toString(36).substring(10);
+var hashids = new Hashids(salt, 12);
 
 // This keeps track of which namespace we've already setup a
 // connection handler for. We don't want to create more than 1
@@ -34,8 +35,8 @@ app.get('/', function (req, res) {
   var newHash = hashids.encrypt(counter);
   hashes[newHash] = "success";
   counter = counter + 1;
-  // res.redirect('http://localhost:3000/' + newHash);
-  res.redirect('http://phantachat.herokuapp.com/' + newHash);
+  res.redirect('http://localhost:3000/' + newHash);
+  // res.redirect('http://phantachat.herokuapp.com/' + newHash);
 });
 
 app.get('/:hash', function(req, res) {
