@@ -2,7 +2,8 @@ var express = require('express')
   , app = express()
   , http = require('http')
   , server = http.createServer(app)
-  , io = require('socket.io').listen(server, { log: false })
+  // {log: false} is necessary to prevent socket from spamming the console
+  , io = require('socket.io').listen(server, {log: false })
   , Hashids = require('hashids');
 
 var port = process.env.PORT || 3000;
@@ -74,11 +75,8 @@ function start_chat(namespace) {
       // when the client emits 'sendchat', this listens and executes
       socket.on('sendchat', function (data) {
         // we tell the client to execute 'updatechat' with 2 parameters
-        // io.sockets.emit('updatechat', socket.username, data);
         console.log(socket.username + " wrote: " + data);
-
         chat.emit('updatechat', socket.username, data);
-        // socket.emit('updatechat', socket.username, data);
       });
 
       // when the client emits 'adduser', this listens and executes
