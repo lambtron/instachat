@@ -16,7 +16,7 @@ $(function(){
   // Some char id that we will never use.
   var unusedCounterValue = 999999999;
   var fadeMillis = 1000;
-  var timeoutMillis = 3000;
+  var timeoutMillis = 2500;
   var msg = $("#msg");
   var theirlog = $("#theirlog");
   var mylog = $("#mylog");
@@ -29,7 +29,10 @@ $(function(){
   // Send message on keyup.
   msg.keyup(function() {
     var message = $(this).val();
-    socket.emit('sendchat', message);
+    // This smooths out the fading since we're sending each character separately.
+    for (var i = 0; i < message.length; i++) {
+        socket.emit('sendchat', message[i]);
+    }
     $(this).val("");
   });
 
